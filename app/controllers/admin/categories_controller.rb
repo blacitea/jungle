@@ -4,4 +4,8 @@ class Admin::CategoriesController < ApplicationController
     @categories = Category.order(:id).all
   end
 
+  def new
+    @category = Category.new
+  end
+
 end
