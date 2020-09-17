@@ -8,3 +8,7 @@
 	<td><%= quantity %></td>
 	<td><%= humanized_money_with_symbol product.price * quantity %></td>
 </tr>
+
+class Item { attr_reader :quantity :price initialize () @quantity @price
+@product_id end def product Product.find(id: @product_id) end }
+Item.product.name
