@@ -9,6 +9,7 @@ class UsersController < ApplicationController
       rediect to '/'
     else
       rediect to '/signup'
+    end
   end
 
 
