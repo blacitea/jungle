@@ -1,7 +1,6 @@
 <div class="container">
   <h1>Admin Dashboard</h1>
   <h2>Store overview</h2>
-
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -17,6 +16,10 @@
       <tr>
         <td><%= link_to Product, admin_products_path %></td>
         <td><%= @product_count.inspect %></td>
+      </tr>
+      <tr>
+        <td><%= link_to Sale, admin_sales_path %></td>
+        <td><%= @sale_count.inspect %></td>
       </tr>
     </tbody>
   </table>
