@@ -23,6 +23,17 @@ RSpec.describe Product, type: :model do
           expect(@product.errors.full_messages).to include('Name can\'t be blank')
         end
       end
+
+      context 'given nil for price' do
+        it 'should return error with price required' do
+          @category = Category.create(name: 'Toys')
+          @product = @category.products.build(name: 'Piko', price: nil, quantity: 1)
+          expect(@product.valid?).to be false
+          expect(@product.errors.any?).to be true
+          expect(@product.errors[:price].any?).to be true
+          expect(@product.errors.full_messages).to include('Price can\'t be blank')
+        end
+      end
     end
 
   end
