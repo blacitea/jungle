@@ -34,6 +34,16 @@ RSpec.describe Product, type: :model do
           expect(@product.errors.full_messages).to include('Price can\'t be blank')
         end
       end
+
+      context 'given nil for quantity' do
+        it 'should return error with quantity required' do
+          @category = Category.create(name: 'Toys')
+          @product = @category.products.build(name: 'Piko', price: 5000, quantity: nil)
+          expect(@product.save).to be false
+          expect(@product.errors.full_messages.size).to eq(1)
+          expect(@product.errors.full_messages).to include('Quantity can\'t be blank')
+        end
+      end
     end
 
   end
