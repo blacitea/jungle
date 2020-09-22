@@ -18,17 +18,40 @@ RSpec.feature "Visitor navigates to product details page", type: :feature, js: t
     end
   end
 
-  scenario "They see details of the product" do
+  scenario "By clicking details_link" do
     # ACT
     visit root_path
     expect(page).to have_css 'article.product' ,count: 10
     product = page.find('article.product', match: :first)
-    save_screenshot
-    # use Regexp to find button
     product.find_link('Details').click
     expect(page).to have_content 'Description'
-
     # DEBUG / VERIFY
+    save_screenshot
+
+  end
+
+  scenario "By clicking product_image" do
+    # ACT
+    visit root_path
+    product = page.find('article.product', match: :first)
+    product.find("img").click
+    expect(page).to have_content 'Description'
+    # DEBUG / VERIFY
+    save_screenshot
+    # puts page.html
+    # puts product.inspect
+
+  end
+
+  scenario "By clicking product name" do
+    # ACT
+    visit root_path
+    product = page.find('article.product', match: :first)
+    product.find("h4").click
+    expect(page).to have_content 'Description'
+    # DEBUG / VERIFY
+    save_screenshot
+
   end
 
 end
