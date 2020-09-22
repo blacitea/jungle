@@ -60,6 +60,13 @@ RSpec.describe User, type: :model do
       end
     end
 
+    context 'password minimum length' do
+      it 'cannot create if given password less than 5 character' do
+        @user = User.create(first_name: 'Alice', last_name: 'Mi', password: 'room', password_confirmation: 'room', email: 'mi@ymail.com')
+        expect(@user.errors.full_messages).to include('Password minimum 5 characters required.')
+      end
+    end
+
     context 'happy case' do
       it 'creates a user instance successfully given all valid inputs' do
         @user = User.create(first_name: 'Alice', last_name: 'Mi', password: 'jungle', password_confirmation: 'jungle', email: 'mi@ymail.com')
