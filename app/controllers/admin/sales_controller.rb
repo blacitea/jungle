@@ -1,6 +1,6 @@
-class Admin::SalesController < ApplicationController
+class Admin::SalesController < Admin::BaseController
 
-  http_basic_authenticate_with name: ENV["ADMIN_ID"], password: ENV["ADMIN_PW"]
+  # http_basic_authenticate_with name: ENV["ADMIN_ID"], password: ENV["ADMIN_PW"]
 
   def index
     @sales = Sale.all.order("starts_on")
