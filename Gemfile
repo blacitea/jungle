@@ -39,14 +39,19 @@ gem 'faker'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#  To install node package - Phantomjs
+#  npm i -g phantomjs
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'rspec-rails', '~> 3.5'
   gem 'byebug'
   gem 'quiet_assets'
   gem 'dotenv-rails'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'database_cleaner'
 
   # Testing
-  gem 'rspec-rails', '~> 3.5'
 end
 
 group :development do
