@@ -75,4 +75,23 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '.authenticate_with_credentials' do
+    before do
+      @user = User.create(first_name: 'Alice', last_name: 'Mi', password: 'jungle', password_confirmation: 'jungle', email: 'mi@ymail.com')
+    end
+    context 'given user email and password' do
+      it 'returns user instance if authenticated' do
+        @user = User.authenticate_with_credentials('mi@ymail.com', 'jungle')
+        expect(@user.first_name).to match('Alice')
+        expect(@user.last_name).to match('Mi')
+      end
+
+      it 'no user instance returned if authentication failed' do
+        @user = User.authenticate_with_credentials('mi@ymail.com', 'book')
+        expect(@user).to be false
+      end
+    end
+  end
+
 end
