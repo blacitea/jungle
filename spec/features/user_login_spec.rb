@@ -15,5 +15,6 @@ RSpec.feature "User authentication", type: :feature, js: true do
     page.click_button 'Login' #click_button must append a page
     #save_screenshot
     expect(page).to have_content('Signed in as Alice')
+    expect(page).to have_content('Products')
   end
 end
