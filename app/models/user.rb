@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   def self.authenticate_with_credentials(email, password)
-    @user = User.find_by_email(email).authenticate(password)
+    @user = User.find_by_email(email.strip.downcase).authenticate(password)
   end
 
   has_secure_password
@@ -10,5 +10,10 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: {case_sensitive: false}
   validates :password, length: {minimum: 5, too_short:"minimum %{count} characters required."}
 
+  before_save :downcase_email
+
+  def downcase_email
+    self.email.downcase!
+  end
 
 end

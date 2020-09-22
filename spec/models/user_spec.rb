@@ -76,10 +76,13 @@ RSpec.describe User, type: :model do
     end
   end
 
+
+
   describe '.authenticate_with_credentials' do
     before do
       @user = User.create(first_name: 'Alice', last_name: 'Mi', password: 'jungle', password_confirmation: 'jungle', email: 'mi@ymail.com')
     end
+
     context 'given user email and password' do
       it 'returns user instance if authenticated' do
         @user = User.authenticate_with_credentials('mi@ymail.com', 'jungle')
@@ -91,6 +94,43 @@ RSpec.describe User, type: :model do
         @user = User.authenticate_with_credentials('mi@ymail.com', 'book')
         expect(@user).to be false
       end
+    end
+  end
+
+  describe 'edge case' do
+
+    before do
+      @user1 = User.create(first_name: 'Alice', last_name: 'Mi', password: 'jungle', password_confirmation: 'jungle', email: 'mi@ymail.com')
+    end
+
+    context 'extra space before/after email should still validate' do
+      it 'returns a user instance with space before' do
+        @user = User.authenticate_with_credentials('  mi@ymail.com', 'jungle')
+        expect(@user.first_name).to match('Alice')
+        expect(@user.last_name).to match('Mi')
+      end
+
+      it 'returns a user instance with space after' do
+        @user = User.authenticate_with_credentials('mi@ymail.com   ', 'jungle')
+        expect(@user.first_name).to match('Alice')
+        expect(@user.last_name).to match('Mi')
+      end
+    end
+
+    context 'still validate with wrong case for email' do
+      it 'returns user instance given with uppercase email' do
+        @user = User.authenticate_with_credentials('MI@YMAIL.COM', 'jungle')
+        expect(@user.first_name).to match('Alice')
+        expect(@user.last_name).to match('Mi')
+      end
+
+      it 'returns user instance given with lower email' do
+        @user2 = User.create(first_name: 'Bob', last_name: 'Mi', password: 'jungle', password_confirmation: 'jungle', email: 'BOB@YMAIL.COM')
+        @user = User.authenticate_with_credentials('BoB@ymail.com', 'jungle')
+        expect(@user.first_name).to match('Bob')
+        expect(@user.last_name).to match('Mi')
+      end
+
     end
   end
 
