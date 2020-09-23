@@ -28,6 +28,7 @@
         </tr>
       </tbody>
     </table>
+    <p>Your order total is <%= humanized_money_with_symbol @order.total_cents/ 100.00 %>. Please stay tune to the shipping email update on delivery details.</p>
     <br>
     <p>Thank you and have a great day!</p>
   </body>
