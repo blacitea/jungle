@@ -28,10 +28,11 @@ class OrdersController < ApplicationController
   end
 
   def perform_stripe_charge
+    puts "User is #{order.user.first_name}"
     Stripe::Charge.create(
       source:      params[:stripeToken],
       amount:      cart_subtotal_cents,
-      description: "Khurram Virani's Jungle Order",
+      description: "#{order.user.first_name}'s Jungle Order",
       currency:    'cad'
     )
   end
